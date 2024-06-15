@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://lsb6s2ervnko"]
+
+[ext_resource type="Script" path="res://systems/CardDealerSystem.gd" id="1_e4p12"]
+
+[node name="CardDealerSystem" type="Node"]
+script = ExtResource("1_e4p12")
