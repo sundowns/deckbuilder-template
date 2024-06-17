@@ -13,3 +13,11 @@ func load_data(data: Dictionary) -> void:
 
 func get_data(type: Constants.CardType):
 	return _properties[type]
+
+var _is_dragging: bool = false
+
+func begin_drag() -> void:
+	_is_dragging = true
+
+func end_drag() -> void:
+	_is_dragging = false
