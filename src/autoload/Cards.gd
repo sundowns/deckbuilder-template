@@ -4,9 +4,7 @@ var loader: CardDataLoader
 var _properties = {}
 
 var selected_card: PlayableCard = null
-
-func _process(delta: float) -> void:
-	pass
+var _is_dragging: bool = false
 
 func _ready() -> void :
 	loader = CardDataLoader.new()
@@ -19,19 +17,21 @@ func load_data(data: Dictionary) -> void:
 func get_data(type: Constants.CardType):
 	return _properties[type]
 
-func _on_card_clicked(card: PlayableCard):
+func _on_card_mouse_pressed(card: PlayableCard):
 	if not selected_card:
 		card.select()
 		selected_card = card
+		_is_dragging = true
 	elif selected_card != card:
 		selected_card.deselect()
 		card.select()
 		selected_card = card
+		_is_dragging = true
 
-#var _is_dragging: bool = false
-#
-#func begin_drag() -> void:
-	#_is_dragging = true
-#
-#func end_drag() -> void:
-	#_is_dragging = false
+func _on_card_mouse_released():
+	_is_dragging = false
+
+func _process(_delta: float) -> void:
+	if _is_dragging:
+		# Remember to store the offset of where it was pressed, so the card doesnt snap to the centre of the mouse
+		print('dragging, lets move it..')

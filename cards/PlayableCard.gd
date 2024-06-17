@@ -10,8 +10,8 @@ var card_data: CardData
 @onready var collision_area: Area2D = $Area2D 
 @onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
 
-# Debug node for visibility
-@onready var background: ColorRect = $Background
+# Should eventually be replaced with actual sprites for each card
+@onready var background: ColorRect = $OutlineClippingMask/Background
 
 var scale_tween: Tween
 var is_selected: bool = false
@@ -26,11 +26,11 @@ func initialise():
 	shape.size = default_card_size
 	collision_shape.shape = shape
 	collision_area.position = shape.size/2
-	#collision_shape.position = shape.size/2
 	
 	background.size = shape.size
 	background.color = card_data.colour
 	pivot_offset = default_card_size/2
+	custom_minimum_size = default_card_size
 
 func _on_mouse_entered() -> void:
 	if is_selected: return
@@ -46,10 +46,12 @@ func _on_mouse_exited() -> void:
 	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	scale_tween.tween_property(self, "scale", Vector2.ONE, 0.4)
 
-func _on_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.is_pressed():
-			Cards._on_card_clicked(self)
+			Cards._on_card_mouse_pressed(self)
+		elif event.is_released():
+			Cards._on_card_mouse_released()
 
 func select() -> void:
 	is_selected = true

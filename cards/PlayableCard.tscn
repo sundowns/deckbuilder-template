@@ -5,6 +5,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n1stb"]
 
 [node name="PlayableCard" type="Control"]
+clip_contents = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -12,14 +13,10 @@ offset_bottom = 40.0
 mouse_filter = 1
 script = ExtResource("1_xvaog")
 
-[node name="SelectedOutline" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(1, 1, 0, 1)
+[node name="OutlineClippingMask" type="Sprite2D" parent="."]
+clip_children = 1
 
-[node name="Background" type="ColorRect" parent="."]
-layout_mode = 0
+[node name="Background" type="ColorRect" parent="OutlineClippingMask"]
 offset_right = 80.0
 offset_bottom = 100.0
 mouse_filter = 1
