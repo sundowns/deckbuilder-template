@@ -13,18 +13,16 @@ offset_bottom = 40.0
 mouse_filter = 1
 script = ExtResource("1_xvaog")
 
-[node name="OutlineClippingMask" type="Sprite2D" parent="."]
-clip_children = 1
-
-[node name="Background" type="ColorRect" parent="OutlineClippingMask"]
-offset_right = 80.0
-offset_bottom = 100.0
-mouse_filter = 1
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_n1stb")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 80.0
+offset_bottom = 100.0
+pivot_offset = Vector2(40, 50)
+mouse_filter = 1
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

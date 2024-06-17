@@ -1,10 +1,11 @@
-extends Node
+extends Node2D
 
 var loader: CardDataLoader
 var _properties = {}
 
 var selected_card: PlayableCard = null
 var _is_dragging: bool = false
+var _draggable_offset: Vector2 = Vector2.ZERO
 
 func _ready() -> void :
 	loader = CardDataLoader.new()
@@ -19,19 +20,32 @@ func get_data(type: Constants.CardType):
 
 func _on_card_mouse_pressed(card: PlayableCard):
 	if not selected_card:
-		card.select()
-		selected_card = card
-		_is_dragging = true
+		select_new_card(card)
 	elif selected_card != card:
 		selected_card.deselect()
-		card.select()
-		selected_card = card
+		select_new_card(card)
+	else: #our already selected card has been clicked again
 		_is_dragging = true
+		_draggable_offset = card.global_position - get_global_mouse_position()
+
+func select_new_card(card) -> void:
+	card.select()
+	selected_card = card
+	_is_dragging = true
+	_draggable_offset = card.global_position - get_global_mouse_position()
+	print('select new')
 
 func _on_card_mouse_released():
 	_is_dragging = false
 
-func _process(_delta: float) -> void:
-	if _is_dragging:
-		# Remember to store the offset of where it was pressed, so the card doesnt snap to the centre of the mouse
-		print('dragging, lets move it..')
+var dragging_speed := 2.0
+
+func _process(delta: float) -> void:
+	if _is_dragging and not Input.is_action_pressed("select"):
+		_is_dragging = false
+		return
+	
+	if _is_dragging and selected_card:
+		selected_card.global_position = get_global_mouse_position() + _draggable_offset
+		#selected_card.global_position = selected_card.global_position.lerp(get_global_mouse_position() + _draggable_offset, delta * dragging_speed)  
+	

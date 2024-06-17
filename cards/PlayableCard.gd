@@ -11,7 +11,7 @@ var card_data: CardData
 @onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
 
 # Should eventually be replaced with actual sprites for each card
-@onready var background: ColorRect = $OutlineClippingMask/Background
+@onready var background: ColorRect = $Background
 
 var scale_tween: Tween
 var is_selected: bool = false
@@ -29,18 +29,19 @@ func initialise():
 	
 	background.size = shape.size
 	background.color = card_data.colour
+	background.pivot_offset
 	pivot_offset = default_card_size/2
 	custom_minimum_size = default_card_size
 
 func _on_mouse_entered() -> void:
-	if is_selected: return
+	if is_selected or Cards._is_dragging: return
 	if scale_tween and scale_tween.is_running():
 		scale_tween.kill()
 	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	scale_tween.tween_property(self, "scale", on_hover_scale_amount, 0.6)
 
 func _on_mouse_exited() -> void:
-	if is_selected: return
+	if is_selected or Cards._is_dragging: return
 	if scale_tween and scale_tween.is_running():
 		scale_tween.kill()
 	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
@@ -55,12 +56,14 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 
 func select() -> void:
 	is_selected = true
+	z_index = 1000
 	if scale_tween and not scale_tween.is_running():
 		scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 		scale_tween.tween_property(self, "scale", on_selected_scale_amount, 0.6)
 
 func deselect() -> void:
 	is_selected = false
+	z_index = 0
 	if scale_tween and scale_tween.is_running():
 		scale_tween.kill()
 	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
