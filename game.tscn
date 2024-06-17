@@ -37,3 +37,10 @@ offset_top = 260.0
 offset_right = 184.0
 offset_bottom = 300.0
 type = 1
+
+[node name="PlayableCard3" parent="Cards" instance=ExtResource("2_7cefa")]
+offset_left = 690.0
+offset_top = 252.0
+offset_right = 730.0
+offset_bottom = 292.0
+type = 2

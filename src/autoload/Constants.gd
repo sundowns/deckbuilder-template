@@ -4,6 +4,7 @@ extends Node
 enum CardType {
 	GREEN = 0,
 	RED = 1,
+	BLUE = 2,
 }
 
 const default_card_width: float = 100.0 #px

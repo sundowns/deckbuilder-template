@@ -5,7 +5,7 @@ signal loading_finished(data: Dictionary)
 
 @export var green_card_resource: CardData = preload("res://cards/data/GreenCard.tres")
 @export var red_card_resource: CardData = preload("res://cards/data/RedCard.tres")
-
+@export var blue_card_resource: CardData = preload("res://cards/data/BlueCard.tres")
 
 var data: Dictionary = {}
 
@@ -14,6 +14,7 @@ func _init():
 	data = {
 		Constants.CardType.GREEN: green_card_resource,
 		Constants.CardType.RED: red_card_resource,
+		Constants.CardType.BLUE: blue_card_resource,
 	}
 	call_deferred("broadcast")
 
