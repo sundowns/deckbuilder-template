@@ -33,6 +33,11 @@ select={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Draggable"
+2d_physics/layer_2="OverlapAvoidance"
+
 [rendering]
 
 renderer/rendering_method="mobile"

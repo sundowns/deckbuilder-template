@@ -22,25 +22,26 @@ func _on_card_mouse_pressed(card: PlayableCard):
 	if not selected_card:
 		select_new_card(card)
 	elif selected_card != card:
+		selected_card.end_dragging()
 		selected_card.deselect()
 		select_new_card(card)
 	else: #our already selected card has been clicked again
+		selected_card.begin_dragging()
 		_is_dragging = true
 		_draggable_offset = card.global_position - get_global_mouse_position()
 
 func select_new_card(card) -> void:
 	card.select()
 	selected_card = card
+	selected_card.begin_dragging()
 	_is_dragging = true
 	_draggable_offset = card.global_position - get_global_mouse_position()
-	print('select new')
 
 func _on_card_mouse_released():
 	_is_dragging = false
+	selected_card.end_dragging()
 
-var dragging_speed := 2.0
-
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if _is_dragging and not Input.is_action_pressed("select"):
 		_is_dragging = false
 		return
