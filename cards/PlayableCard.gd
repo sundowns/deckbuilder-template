@@ -10,7 +10,6 @@ var card_data: CardData
 
 @onready var collision_area: Area2D = $Area2D 
 @onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
-@onready var overlap_avoidance_area: Area2D = $OverlapAvoidanceArea
 
 # Should eventually be replaced with actual sprites for each card
 @onready var background: ColorRect = $Background
@@ -35,7 +34,6 @@ func initialise():
 	background.color = card_data.colour
 	pivot_offset = card_size/2
 	custom_minimum_size = card_size
-	overlap_avoidance_area.position = card_size/2
 
 func get_centre_world_position() -> Vector2:
 	return global_position + card_size/2
@@ -83,24 +81,3 @@ func deselect() -> void:
 		scale_tween.kill()
 	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 	scale_tween.tween_property(self, "scale", Vector2.ONE, 0.6)
-
-var overlap_slide_speed: float = 1.0
-var contacting_something := false
-var overlap_slide_position: Vector2 = Vector2.ZERO
-
-# Fuck idk really, maybe try using the signals
-func _physics_process(delta: float) -> void:
-	contacting_something = false
-	for area in overlap_avoidance_area.get_overlapping_areas():
-		var parent = area.get_parent()
-		# Skip if the other card is being held by the player.
-		if parent is PlayableCard and parent.is_being_dragged:
-			continue
-		contacting_something = true
-		var direction: Vector2 = (get_centre_world_position() - parent.get_centre_world_position()).normalized()
-		overlap_slide_position = overlap_avoidance_area.global_position + direction * overlap_slide_speed * 1.0
-		break
-	if contacting_something:
-		#print('overlap_slide_direction: ', overlap_slide_direction)
-		global_position = global_position.lerp(overlap_slide_position, delta)
-		#print('%s overlapping %s' % [card_data.title, Engine.get_frames_drawn()])

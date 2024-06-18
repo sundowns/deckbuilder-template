@@ -1,11 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bpibsgf8csmm5"]
+[gd_scene load_steps=3 format=3 uid="uid://bpibsgf8csmm5"]
 
 [ext_resource type="Script" path="res://cards/PlayableCard.gd" id="1_xvaog"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n1stb"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3f1b6"]
-size = Vector2(30, 30)
 
 [node name="PlayableCard" type="Control"]
 clip_contents = true
@@ -26,14 +23,6 @@ offset_right = 80.0
 offset_bottom = 100.0
 pivot_offset = Vector2(40, 50)
 mouse_filter = 1
-
-[node name="OverlapAvoidanceArea" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OverlapAvoidanceArea"]
-shape = SubResource("RectangleShape2D_3f1b6")
-debug_color = Color(1, 0.6, 0.701961, 0.419608)
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
