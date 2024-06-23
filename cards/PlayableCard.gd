@@ -70,7 +70,7 @@ func end_dragging() -> void:
 func select() -> void:
 	is_selected = true
 	z_index = 1000
-	if scale_tween and not scale_tween.is_running():
+	if not scale_tween or (scale_tween and not scale_tween.is_running()):
 		scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 		scale_tween.tween_property(self, "scale", on_selected_scale_amount, 0.6)
 
