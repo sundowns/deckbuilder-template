@@ -6,3 +6,6 @@ var buffs: Array = []
 func _init(_base_data, _buffs): 
 	self.card_data = _base_data
 	self.buffs = _buffs
+
+func _to_string() -> String:
+	return "<Card-" + self.card_data.title + "\\>"

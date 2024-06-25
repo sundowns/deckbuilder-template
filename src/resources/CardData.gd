@@ -1,7 +1,7 @@
 extends Resource
 class_name CardData
 
-@export_category("Card Data")
+@export_category("Metadata")
 @export var title: String
 @export var description: String = ""
 

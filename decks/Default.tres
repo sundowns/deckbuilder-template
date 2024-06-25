@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Deck" load_steps=2 format=3 uid="uid://7gbfow0c18xm"]
+
+[ext_resource type="Script" path="res://src/resources/Deck.gd" id="1_yhpha"]
+
+[resource]
+script = ExtResource("1_yhpha")
+title = "Default"
+description = "I'm a deck of cards"
+shuffle_cards = false
+cards = Array[int]([1, 0, 2])

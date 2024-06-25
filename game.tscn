@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://doqufub1ghafd"]
+[gd_scene load_steps=2 format=3 uid="uid://doqufub1ghafd"]
 
 [ext_resource type="PackedScene" uid="uid://lsb6s2ervnko" path="res://systems/CardDealerSystem.tscn" id="1_r88tf"]
-[ext_resource type="PackedScene" uid="uid://bpibsgf8csmm5" path="res://cards/PlayableCard.tscn" id="2_7cefa"]
 
 [node name="Game" type="Node2D"]
 
@@ -24,23 +23,3 @@ metadata/_edit_lock_ = true
 [node name="CardDealerSystem" parent="Systems" instance=ExtResource("1_r88tf")]
 
 [node name="Cards" type="Node" parent="."]
-
-[node name="PlayableCard" parent="Cards" instance=ExtResource("2_7cefa")]
-offset_left = 388.0
-offset_top = 250.0
-offset_right = 428.0
-offset_bottom = 290.0
-
-[node name="PlayableCard2" parent="Cards" instance=ExtResource("2_7cefa")]
-offset_left = 144.0
-offset_top = 260.0
-offset_right = 184.0
-offset_bottom = 300.0
-type = 1
-
-[node name="PlayableCard3" parent="Cards" instance=ExtResource("2_7cefa")]
-offset_left = 690.0
-offset_top = 252.0
-offset_right = 730.0
-offset_bottom = 292.0
-type = 2

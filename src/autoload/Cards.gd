@@ -1,5 +1,7 @@
 extends Node2D
 
+signal cards_loaded
+
 var loader: CardDataLoader
 var _properties = {}
 
@@ -14,6 +16,7 @@ func _ready() -> void :
 
 func load_data(data: Dictionary) -> void:
 	_properties = data
+	cards_loaded.emit()
 
 func get_data(type: Constants.CardType):
 	return _properties[type]
