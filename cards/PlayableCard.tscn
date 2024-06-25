@@ -19,6 +19,7 @@ script = ExtResource("1_xvaog")
 shape = SubResource("RectangleShape2D_n1stb")
 
 [node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
 offset_right = 80.0
 offset_bottom = 100.0
 pivot_offset = Vector2(40, 50)

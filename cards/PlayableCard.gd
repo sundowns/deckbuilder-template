@@ -79,5 +79,5 @@ func deselect() -> void:
 	z_index = 0
 	if scale_tween and scale_tween.is_running():
 		scale_tween.kill()
-	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	scale_tween.tween_property(self, "scale", Vector2.ONE, 0.6)
+	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_LINEAR)
+	scale_tween.tween_property(self, "scale", Vector2.ONE, 0.1)
