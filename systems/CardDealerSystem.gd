@@ -16,6 +16,9 @@ func _input(event: InputEvent) -> void:
 		draw_card()
 	elif event.is_action_pressed("debug_print_draw_pile"):
 		debug_print_draw_pile()
+	elif event.is_action_pressed("debug_shuffle_draw_pile"):
+		print('shuffle')
+		shuffle_draw_pile()
 
 func create_card(type: Constants.CardType) -> Card:
 	return Card.new(Cards.get_data(type), [])
@@ -46,7 +49,8 @@ func reset_draw_pile(shuffle: bool = false) -> void:
 	if shuffle:
 		shuffle_draw_pile()
 
-func shuffle_draw_pile() -> void: pass # stub atm
+func shuffle_draw_pile() -> void:
+	draw_pile.shuffle() # TODO: would be great to seed this so its repeatable 
 
 func debug_print_draw_pile() -> void:
 	print('---')
