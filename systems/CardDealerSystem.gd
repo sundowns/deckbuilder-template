@@ -19,6 +19,9 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("debug_shuffle_draw_pile"):
 		print('shuffle')
 		shuffle_draw_pile()
+	elif event.is_action_pressed("debug_reset_draw_pile"):
+		reset_draw_pile()
+		debug_print_draw_pile()
 
 func create_card(type: Constants.CardType) -> Card:
 	return Card.new(type, Cards.get_data(type), [])
