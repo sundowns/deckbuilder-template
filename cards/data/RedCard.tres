@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://ssehffjltpiq"]
+
+[ext_resource type="Script" path="res://src/resources/CardData.gd" id="1_5iy3p"]
+
+[resource]
+script = ExtResource("1_5iy3p")
+title = "Red Guy"
+description = "I am red af"
+colour = Color(1, 0, 0, 1)
