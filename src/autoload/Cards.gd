@@ -31,16 +31,17 @@ func _on_card_mouse_pressed(card: PlayableCard):
 		selected_card.deselect()
 		select_new_card(card)
 	else: #our already selected card has been clicked again
-		selected_card.begin_dragging()
-		_is_dragging = true
-		_draggable_offset = card.global_position - get_global_mouse_position()
+		drag_selected_card()
 
 func select_new_card(card) -> void:
 	card.select()
 	selected_card = card
+	drag_selected_card()
+
+func drag_selected_card() -> void:
 	selected_card.begin_dragging()
 	_is_dragging = true
-	_draggable_offset = card.global_position - get_global_mouse_position()
+	_draggable_offset = selected_card.global_position - get_global_mouse_position()
 
 func _on_card_mouse_released():
 	_is_dragging = false
