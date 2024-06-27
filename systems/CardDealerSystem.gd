@@ -21,7 +21,7 @@ func _input(event: InputEvent) -> void:
 		shuffle_draw_pile()
 
 func create_card(type: Constants.CardType) -> Card:
-	return Card.new(Cards.get_data(type), [])
+	return Card.new(type, Cards.get_data(type), [])
 
 func draw_card() -> void:
 	if draw_pile.is_empty():
@@ -29,7 +29,6 @@ func draw_card() -> void:
 		return
 	var card: Card = draw_pile.pop_back()
 	deal.emit(card)
-	print('drew a .. ', card)
 
 func draw_out() -> void:
 	print('deck is empty!')

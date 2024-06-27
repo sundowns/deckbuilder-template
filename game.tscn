@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://doqufub1ghafd"]
+[gd_scene load_steps=3 format=3 uid="uid://doqufub1ghafd"]
 
 [ext_resource type="PackedScene" uid="uid://lsb6s2ervnko" path="res://systems/CardDealerSystem.tscn" id="1_r88tf"]
+[ext_resource type="PackedScene" uid="uid://6w2wd32adk5p" path="res://systems/HandManagerSystem.tscn" id="2_ob8b4"]
 
 [node name="Game" type="Node2D"]
 
@@ -22,4 +23,10 @@ metadata/_edit_lock_ = true
 
 [node name="CardDealerSystem" parent="Systems" instance=ExtResource("1_r88tf")]
 
-[node name="Cards" type="Node" parent="."]
+[node name="HandManagerSystem" parent="Systems" node_paths=PackedStringArray("card_anchor_node") instance=ExtResource("2_ob8b4")]
+card_anchor_node = NodePath("../../Hand")
+
+[node name="Hand" type="Node2D" parent="."]
+position = Vector2(624, 385)
+
+[connection signal="deal" from="Systems/CardDealerSystem" to="Systems/HandManagerSystem" method="_on_card_gained"]

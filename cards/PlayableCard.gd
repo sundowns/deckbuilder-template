@@ -21,6 +21,9 @@ var is_being_dragged: bool = false
 func _ready() -> void:
 	call_deferred("initialise") 
 
+func set_card_type(new_type: Constants.CardType) -> void:
+	type = new_type
+
 func initialise():
 	card_data = Cards.get_data(type)
 	

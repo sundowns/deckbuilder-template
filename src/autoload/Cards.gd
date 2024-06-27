@@ -2,6 +2,8 @@ extends Node2D
 
 signal cards_loaded
 
+var playable_card_scene: PackedScene = preload("res://cards/PlayableCard.tscn")
+
 var loader: CardDataLoader
 var _properties = {}
 
@@ -51,5 +53,9 @@ func _process(_delta: float) -> void:
 	
 	if _is_dragging and selected_card:
 		selected_card.global_position = get_global_mouse_position() + _draggable_offset
-		#selected_card.global_position = selected_card.global_position.lerp(get_global_mouse_position() + _draggable_offset, delta * dragging_speed)  
-	
+
+func create_playable_card(card_to_create: Card) -> PlayableCard:
+	var new_playable: PlayableCard = playable_card_scene.instantiate()
+	new_playable.set_card_type(card_to_create.type)
+	# TODO: this is where pre-existing buffs should probably be added to the playable instance
+	return new_playable
