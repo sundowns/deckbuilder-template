@@ -1,6 +1,8 @@
 extends Control
 class_name PlayableCard
 
+var _has_initialised: bool = false
+
 @export var type: Constants.CardType
 @export var on_hover_scale_amount: Vector2 = Vector2(1.15, 1.15)
 @export var on_selected_scale_amount: Vector2 = Vector2(1.15, 1.15)
@@ -19,13 +21,14 @@ var is_selected: bool = false
 var is_being_dragged: bool = false
 
 func _ready() -> void:
-	call_deferred("initialise") 
+	if not _has_initialised:
+		call_deferred("initialise") 
 
 func set_card_type(new_type: Constants.CardType) -> void:
 	type = new_type
 
-
 func initialise():
+	_has_initialised = true
 	card_data = Cards.get_data(type)
 	
 	card_size = default_card_size
