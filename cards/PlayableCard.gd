@@ -20,6 +20,8 @@ var scale_tween: Tween
 var is_selected: bool = false
 var is_being_dragged: bool = false
 
+var movement_tween: Tween
+
 func _ready() -> void:
 	if not _has_initialised:
 		call_deferred("initialise") 
@@ -88,3 +90,12 @@ func deselect() -> void:
 		scale_tween.kill()
 	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_LINEAR)
 	scale_tween.tween_property(self, "scale", Vector2.ONE, 0.1)
+
+func move_towards(new_position: Vector2, centre_around_position: bool = true) -> void:
+	var target := new_position
+	if movement_tween and movement_tween.is_running():
+		movement_tween.kill()
+	if centre_around_position:
+		target -= card_size/2
+	movement_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	movement_tween.tween_property(self, "global_position", target, 0.65)

@@ -11,5 +11,5 @@ func _on_card_received(card: PlayableCard) -> void:
 		card.get_parent().remove_child(card)
 	add_child(card)
 	card.global_position = card_position
-	
+	card.move_towards(global_position)
 	# TODO: start a tween that moves the card from their previous location to the new location (probably a function inside the playable card itself?)
