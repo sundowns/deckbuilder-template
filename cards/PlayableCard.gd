@@ -1,6 +1,8 @@
 extends Control
 class_name PlayableCard
 
+signal request_return_to_hand(card: PlayableCard, child_index: int)
+
 var _has_initialised: bool = false
 
 @export var type: Constants.CardType
@@ -21,6 +23,7 @@ var is_selected: bool = false
 var is_being_dragged: bool = false
 
 var movement_tween: Tween
+var is_in_hand: bool = false
 
 func _ready() -> void:
 	if not _has_initialised:
@@ -71,21 +74,22 @@ func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 func begin_dragging() -> void:
 	is_being_dragged = true
 	set_physics_process(false)
+	movement_tween.kill()
 
 func end_dragging() -> void:
 	is_being_dragged = false
 	set_physics_process(true)
+	if is_in_hand:
+		request_return_to_hand.emit(self, get_index())
 
 func select() -> void:
 	is_selected = true
-	z_index = 1000
 	if not scale_tween or (scale_tween and not scale_tween.is_running()):
 		scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
 		scale_tween.tween_property(self, "scale", on_selected_scale_amount, 0.6)
 
 func deselect() -> void:
 	is_selected = false
-	z_index = 0
 	if scale_tween and scale_tween.is_running():
 		scale_tween.kill()
 	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_LINEAR)
@@ -99,3 +103,11 @@ func move_towards(new_position: Vector2, centre_around_position: bool = true) ->
 		target -= card_size/2
 	movement_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 	movement_tween.tween_property(self, "global_position", target, 0.65)
+
+func _on_added_to_hand(hand: Hand) -> void:
+	is_in_hand = true
+	request_return_to_hand.connect(hand._on_card_return_to_hand, get_index())
+
+
+# TODO: Need to figure out another way to handle clicking on cards, that actually consumes events (z-index is just a visual thing, not input)
+# TODO: See https://www.reddit.com/r/godot/comments/fdmsw3/overlapping_input_events/

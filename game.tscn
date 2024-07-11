@@ -28,7 +28,7 @@ metadata/_edit_lock_ = true
 position = Vector2(1089, 573)
 
 [node name="Hand" parent="." instance=ExtResource("2_1v5f3")]
-position = Vector2(647, 558)
+position = Vector2(223, 562)
 
 [connection signal="deal" from="Systems/CardDealerSystem" to="DrawPile" method="_on_card_drawn"]
 [connection signal="card_drawn" from="DrawPile" to="Hand" method="_on_card_received"]
