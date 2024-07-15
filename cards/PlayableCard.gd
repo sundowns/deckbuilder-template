@@ -17,8 +17,8 @@ var card_data: CardData
 
 # Should eventually be replaced with actual sprites for each card
 @onready var background: ColorRect = $Background
+@onready var is_selected_identifier: ColorRect = $IsSelectedIdentifier
 
-var scale_tween: Tween
 var is_selected: bool = false
 var is_being_dragged: bool = false
 
@@ -46,23 +46,17 @@ func initialise():
 	background.color = card_data.colour
 	pivot_offset = card_size/2
 	custom_minimum_size = card_size
+	
+	is_selected_identifier.visible = false
 
 func get_centre_world_position() -> Vector2:
 	return global_position + card_size/2
 
 func _on_mouse_entered() -> void:
 	if is_selected or Cards._is_dragging: return
-	if scale_tween and scale_tween.is_running():
-		scale_tween.kill()
-	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	scale_tween.tween_property(self, "scale", on_hover_scale_amount, 0.6)
 
 func _on_mouse_exited() -> void:
 	if is_selected or Cards._is_dragging: return
-	if scale_tween and scale_tween.is_running():
-		scale_tween.kill()
-	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-	scale_tween.tween_property(self, "scale", Vector2.ONE, 0.4)
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
@@ -84,16 +78,11 @@ func end_dragging() -> void:
 
 func select() -> void:
 	is_selected = true
-	if not scale_tween or (scale_tween and not scale_tween.is_running()):
-		scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_ELASTIC)
-		scale_tween.tween_property(self, "scale", on_selected_scale_amount, 0.6)
+	is_selected_identifier.visible = true
 
 func deselect() -> void:
 	is_selected = false
-	if scale_tween and scale_tween.is_running():
-		scale_tween.kill()
-	scale_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_LINEAR)
-	scale_tween.tween_property(self, "scale", Vector2.ONE, 0.1)
+	is_selected_identifier.visible = false
 
 func move_towards(new_position: Vector2, centre_around_position: bool = true) -> void:
 	var target := new_position
