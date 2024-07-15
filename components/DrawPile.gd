@@ -1,4 +1,5 @@
 extends Node2D
+class_name DrawPile
 
 signal card_drawn(card: PlayableCard)
 

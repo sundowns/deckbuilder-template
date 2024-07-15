@@ -3,9 +3,6 @@ class_name Hand
 
 @onready var card_anchor: Node2D = $CardAnchor
 
-# TODO: this class will manage keeping its children in order and in position similar to balatro (cause its cool :])
-# See TODO at the bottom of playable card for handling order properly
-
 const x_offset_per_card: float = 50.0
 
 func _on_card_received(card: PlayableCard) -> void:
@@ -20,3 +17,8 @@ func _on_card_received(card: PlayableCard) -> void:
 
 func _on_card_return_to_hand(card: PlayableCard, child_index: int) -> void:
 	card.move_towards(global_position + Vector2(child_index * x_offset_per_card, 0))
+
+func remove_card(card: PlayableCard) -> void:
+	print('removing card from hand: ', card)
+	card_anchor.remove_child(card)
+	card._on_removed_from_hand(self)

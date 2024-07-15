@@ -12,9 +12,6 @@ const default_card_size: Vector2 = Vector2(Constants.default_card_width, Constan
 var card_size: Vector2 = Vector2.ONE
 var card_data: CardData
 
-#@onready var collision_area: Area2D = $Area2D 
-#@onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
-
 # Should eventually be replaced with actual sprites for each card
 @onready var background: ColorRect = $Background
 @onready var is_selected_identifier: ColorRect = $IsSelectedIdentifier
@@ -95,3 +92,13 @@ func move_towards(new_position: Vector2, centre_around_position: bool = true) ->
 func _on_added_to_hand(hand: Hand) -> void:
 	is_in_hand = true
 	request_return_to_hand.connect(hand._on_card_return_to_hand, get_index())
+
+func _on_removed_from_hand(hand: Hand) -> void:
+	is_in_hand = false
+	request_return_to_hand.disconnect(hand._on_card_return_to_hand)
+
+func _to_string() -> String:
+	return "<PlayableCard-" + self.card_data.title + " [" + str(get_instance_id()) + "]\\>"
+
+func play() -> void:
+	print("playing ", self)
