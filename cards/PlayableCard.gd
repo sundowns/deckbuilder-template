@@ -12,8 +12,8 @@ const default_card_size: Vector2 = Vector2(Constants.default_card_width, Constan
 var card_size: Vector2 = Vector2.ONE
 var card_data: CardData
 
-@onready var collision_area: Area2D = $Area2D 
-@onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
+#@onready var collision_area: Area2D = $Area2D 
+#@onready var collision_shape: CollisionShape2D = $Area2D/CollisionShape2D
 
 # Should eventually be replaced with actual sprites for each card
 @onready var background: ColorRect = $Background
@@ -36,18 +36,17 @@ func initialise():
 	_has_initialised = true
 	card_data = Cards.get_data(type)
 	
-	card_size = default_card_size
-	var shape := RectangleShape2D.new()
-	shape.size = card_size
-	collision_shape.shape = shape
-	collision_area.position = shape.size/2
-	
-	background.size = shape.size
+	resize(default_card_size)
 	background.color = card_data.colour
-	pivot_offset = card_size/2
-	custom_minimum_size = card_size
 	
 	is_selected_identifier.visible = false
+
+func resize(new_card_size: Vector2) -> void:
+	card_size = new_card_size
+	size = card_size
+	custom_minimum_size = card_size
+	pivot_offset = card_size/2
+	background.size = card_size
 
 func get_centre_world_position() -> Vector2:
 	return global_position + card_size/2
@@ -58,7 +57,7 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	if is_selected or Cards._is_dragging: return
 
-func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+func _on_gui_input(event: InputEvent):
 	if event is InputEventMouseButton:
 		if event.is_pressed():
 			Cards._on_card_mouse_pressed(self)
@@ -96,7 +95,3 @@ func move_towards(new_position: Vector2, centre_around_position: bool = true) ->
 func _on_added_to_hand(hand: Hand) -> void:
 	is_in_hand = true
 	request_return_to_hand.connect(hand._on_card_return_to_hand, get_index())
-
-
-# TODO: Need to figure out another way to handle clicking on cards, that actually consumes events (z-index is just a visual thing, not input)
-# TODO: See https://www.reddit.com/r/godot/comments/fdmsw3/overlapping_input_events/
