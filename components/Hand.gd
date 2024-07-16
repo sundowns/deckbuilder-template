@@ -19,6 +19,5 @@ func _on_card_return_to_hand(card: PlayableCard, child_index: int) -> void:
 	card.move_towards(global_position + Vector2(child_index * x_offset_per_card, 0))
 
 func remove_card(card: PlayableCard) -> void:
-	print('removing card from hand: ', card)
 	card_anchor.remove_child(card)
 	card._on_removed_from_hand(self)

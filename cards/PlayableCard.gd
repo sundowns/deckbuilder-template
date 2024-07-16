@@ -100,5 +100,7 @@ func _on_removed_from_hand(hand: Hand) -> void:
 func _to_string() -> String:
 	return "<PlayableCard-" + self.card_data.title + " [" + str(get_instance_id()) + "]\\>"
 
-func play() -> void:
+# The format and contents of context depends on the game state being manipulated
+func play(context = null) -> void:
 	print("playing ", self)
+	card_data._on_play(context)
