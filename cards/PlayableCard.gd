@@ -93,9 +93,10 @@ func _on_added_to_hand(hand: Hand) -> void:
 	is_in_hand = true
 	request_return_to_hand.connect(hand._on_card_return_to_hand, get_index())
 
-func _on_removed_from_hand(hand: Hand) -> void:
+func _on_removed_from_hand() -> void:
 	is_in_hand = false
-	request_return_to_hand.disconnect(hand._on_card_return_to_hand)
+	for connection in request_return_to_hand.get_connections():
+		connection['signal'].disconnect(connection['callable'])
 
 func _to_string() -> String:
 	return "<PlayableCard-" + self.card_data.title + " [" + str(get_instance_id()) + "]\\>"

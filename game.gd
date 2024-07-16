@@ -10,10 +10,12 @@ func _input(event: InputEvent) -> void:
 func play_selected_card() -> void:
 	var selected_card: PlayableCard = Cards.selected_card
 	if selected_card and selected_card.is_in_hand:
-		hand.remove_card(selected_card)
 		selected_card.play()
 		discard_card(selected_card)
+		Cards.deselect_current_card()
 
-# Assumes the card has already left the node tree (has no parent)
 func discard_card(card: PlayableCard) -> void:
-	discard_pile.add_card(card)
+	var cards_previous_position: Vector2 = card.global_position
+	if card.is_in_hand:
+		hand.remove_card(card)
+	discard_pile.add_card(card, cards_previous_position)

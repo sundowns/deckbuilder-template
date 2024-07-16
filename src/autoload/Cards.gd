@@ -28,7 +28,7 @@ func _on_card_mouse_pressed(card: PlayableCard):
 		select_new_card(card)
 	elif selected_card != card:
 		selected_card.end_dragging()
-		selected_card.deselect()
+		deselect_current_card()
 		select_new_card(card)
 	else: #our already selected card has been clicked again
 		drag_selected_card()
@@ -37,6 +37,10 @@ func select_new_card(card) -> void:
 	card.select()
 	selected_card = card
 	drag_selected_card()
+
+func deselect_current_card() -> void:
+	selected_card.deselect()
+	selected_card = null
 
 func drag_selected_card() -> void:
 	selected_card.begin_dragging()

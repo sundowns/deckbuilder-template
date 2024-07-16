@@ -20,4 +20,4 @@ func _on_card_return_to_hand(card: PlayableCard, child_index: int) -> void:
 
 func remove_card(card: PlayableCard) -> void:
 	card_anchor.remove_child(card)
-	card._on_removed_from_hand(self)
+	card._on_removed_from_hand()
