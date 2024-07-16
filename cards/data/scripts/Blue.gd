@@ -10,9 +10,6 @@ And himself and everybody around
 'Cause he ain't got nobody to listen (To listen, to listen, to listen)
 """
 
+@warning_ignore("unused_parameter")
 func play(context) -> void:
 	print(lyrics)
-
-func discard(context) -> void: pass
-func add_to_hand(context) -> void: pass
-func add_to_deck(context) -> void: pass
