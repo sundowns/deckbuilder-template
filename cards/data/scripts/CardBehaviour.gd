@@ -6,5 +6,3 @@ func play(context: Object) -> void: pass
 func discard(context: Object) -> void: pass
 @warning_ignore("unused_parameter")
 func add_to_hand(context: Object) -> void: pass
-@warning_ignore("unused_parameter")
-func add_to_deck(context: Object) -> void: pass

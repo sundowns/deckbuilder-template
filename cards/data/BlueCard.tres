@@ -8,4 +8,4 @@ script = ExtResource("1_yeasn")
 title = "Blue Fella"
 description = "me blue"
 colour = Color(0, 0.4, 1, 1)
-play_script = ExtResource("1_lduc5")
+behaviour_script = ExtResource("1_lduc5")

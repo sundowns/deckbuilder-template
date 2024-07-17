@@ -92,6 +92,7 @@ func move_towards(new_position: Vector2, centre_around_position: bool = true) ->
 func _on_added_to_hand(hand: Hand) -> void:
 	is_in_hand = true
 	request_return_to_hand.connect(hand._on_card_return_to_hand, get_index())
+	card_data._on_add_to_hand(null) # TODO: derive context from somewhere (maybe a singleton?)
 
 func _on_removed_from_hand() -> void:
 	is_in_hand = false
@@ -102,6 +103,10 @@ func _to_string() -> String:
 	return "<PlayableCard-" + self.card_data.title + " [" + str(get_instance_id()) + "]\\>"
 
 # The format and contents of context depends on the game state being manipulated
-func play(context = null) -> void:
+func play() -> void:
 	print("playing ", self)
-	card_data._on_play(context)
+	card_data._on_play(null) # TODO: derive context from somewhere (maybe a singleton?)
+
+func discard() -> void:
+	print("discarding ", self)
+	card_data._on_discard(null) # TODO: derive context from somewhere (maybe a singleton?)

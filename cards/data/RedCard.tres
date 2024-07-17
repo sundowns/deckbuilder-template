@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3 uid="uid://ssehffjltpiq"]
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://ssehffjltpiq"]
 
+[ext_resource type="Script" path="res://cards/data/scripts/Red.gd" id="1_0sh4f"]
 [ext_resource type="Script" path="res://src/resources/CardData.gd" id="1_5iy3p"]
 
 [resource]
@@ -7,3 +8,4 @@ script = ExtResource("1_5iy3p")
 title = "Red Guy"
 description = "I am red af"
 colour = Color(1, 0, 0, 1)
+behaviour_script = ExtResource("1_0sh4f")
