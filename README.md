@@ -18,4 +18,4 @@ Implements a few basic features including:
 - [`R`] Reset draw pile
 - [`S`] Shuffle draw pile
 - [`SPACE`] Play selected card
-- ['D] Discard selected card
+- [`D`] Discard selected card

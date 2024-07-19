@@ -10,10 +10,9 @@ config_version=5
 
 [application]
 
-config/name="TD deckbuilder"
+config/name="deckbuilder-template"
 run/main_scene="res://game.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
-boot_splash/bg_color=Color(0.243137, 0.0745098, 0.0862745, 1)
 config/icon="res://icon.svg"
 
 [autoload]
