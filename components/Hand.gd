@@ -21,3 +21,8 @@ func _on_card_return_to_hand(card: PlayableCard, child_index: int) -> void:
 func remove_card(card: PlayableCard) -> void:
 	card_anchor.remove_child(card)
 	card._on_removed_from_hand()
+	realign_all_cards()
+
+func realign_all_cards() -> void:
+	for card in card_anchor.get_children():
+		card.move_towards(global_position + Vector2(card.get_index() * x_offset_per_card, 0))
