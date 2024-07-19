@@ -17,3 +17,5 @@ Implements a few basic features including:
 - [`E`] Print current draw pile (to console)
 - [`R`] Reset draw pile
 - [`S`] Shuffle draw pile
+- [`SPACE`] Play selected card
+- ['D] Discard selected card
